@@ -22,7 +22,7 @@
         <tr>
             <th>
                 <a style="text-decoration: none"
-                   href="${pageContext.request.contextPath}/product-info?id=${product.id}">
+                   href="${pageContext.request.contextPath}/productInfo?id=${product.id}">
                     <img width="auto" height="auto" src="${product.img}"> </a>
             </th>
             <th>
@@ -30,7 +30,7 @@
                     <tr style="border-color: white">
                         <th style="border-color: white; font-size: x-large">
                             <a style="text-decoration: none"
-                               href="${pageContext.request.contextPath}/product-info?id=${product.id}">
+                               href="${pageContext.request.contextPath}/productInfo?id=${product.id}">
                                     ${product.brand.name} ${product.model} </a>
                         </th>
                     </tr>

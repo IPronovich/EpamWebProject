@@ -27,7 +27,9 @@ public class CommandProvider {
         commandBox.put(REGISTRATION, new Registration());
         commandBox.put(REVIEW_FORM, new ReviewForm());
         commandBox.put(ADD_REVIEW, new AddReview());
-
+        commandBox.put(CATALOG, new CatalogShowing());
+        commandBox.put(REVIEW, new ReviewShowing());
+        commandBox.put(PRODUCTINFO, new ProductInfoShowing());
     }
 
 

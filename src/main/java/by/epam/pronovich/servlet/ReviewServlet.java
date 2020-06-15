@@ -1,9 +1,6 @@
 package by.epam.pronovich.servlet;
 
 import by.epam.pronovich.controller.Controller;
-import by.epam.pronovich.model.Review;
-import by.epam.pronovich.service.ServiceProvider;
-import by.epam.pronovich.util.JspPathUtil;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,12 +15,9 @@ public class ReviewServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String id = req.getParameter("id");
-        List<Review> reviews = ServiceProvider.getINSTANCE().getReviewService().getByProductId(Integer.valueOf(id));
-        req.setAttribute("reviews", reviews);
-        req.setAttribute("prod_id", id);
+        ServletContext servletContext = getServletContext();
+        Controller.getINSTANCE().doAction(req, resp, servletContext);
 
-        getServletContext().getRequestDispatcher(JspPathUtil.get("review")).forward(req, resp);
     }
 
     @Override

@@ -12,5 +12,9 @@ public enum CommandName {
     AUTORIZATION,
     REGISTRATION,
     REVIEW_FORM,
-    ADD_REVIEW
+    ADD_REVIEW,
+    CATALOG,
+    REVIEW,
+    PRODUCTINFO,
+    OLENER
 }

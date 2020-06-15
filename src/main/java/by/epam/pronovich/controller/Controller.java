@@ -21,10 +21,21 @@ public class Controller {
 
 
     public void doAction(HttpServletRequest req, HttpServletResponse resp, ServletContext servletContext) throws ServletException, IOException {
-        String commandName = req.getParameter("command");
+        String commandName = getCommandName(req);
         Command command = commandProvider.getCommand(commandName);
         command.execute(req, resp, servletContext);
 
 
+    }
+
+    private String getCommandName(HttpServletRequest request) {
+        String commandName = null;
+        String command = request.getParameter("command");
+        if (command != null) {
+            commandName = command;
+        } else {
+            commandName = request.getRequestURI().substring(1);
+        }
+        return commandName;
     }
 }
