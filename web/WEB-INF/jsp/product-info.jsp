@@ -33,7 +33,7 @@
 <table>
     <tr>
         <th>
-            <img  height="134" src="${requestScope.product.img}">
+            <img height="134" src="${requestScope.product.img}">
 
         </th>
         <th>

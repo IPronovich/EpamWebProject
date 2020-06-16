@@ -45,12 +45,6 @@
     </table>
 </c:forEach>
 
-<form action="/catalog" method="get">
-    <button type="submit" name="TEST" value="add_product"
-            style="background: green; color: white">
-        TESTT!!!
-    </button>
-</form>
 
 </body>
 </html>

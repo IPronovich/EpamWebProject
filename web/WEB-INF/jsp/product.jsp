@@ -14,28 +14,41 @@
 <head>
     <title>PRODUCT Olener</title>
 </head>
-<body>
-<jsp:include page="header.jsp"></jsp:include>
-<jsp:include page="secondHeader.jsp"></jsp:include>
-<style>
-    table {
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        width: auto;
-    }
-    td, th {
-        border: 1px solid #dddddd;
-        text-align: left;
-        padding: 8px;
-    }
-</style>
+<form>
+    <jsp:include page="header.jsp"></jsp:include>
+    <jsp:include page="secondHeader.jsp"></jsp:include>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: auto;
+        }
 
-<c:if test="${not empty requestScope.products }">
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+    </style>
+
+    <c:if test="${not empty requestScope.products }">
     <h1 style="color: #0f1b65"> ${requestScope.products.get(0).catalog.description} </h1>
-</c:if>
+    </c:if>
+
+    <form >
+        <input type="hidden" value="${requestScope.categoryId}" name="categoryId">
+        <label>Сначала <br>
+            <select name="order">
+                <c:forEach var="order" items="${requestScope.orderList}">
+                    <option value="${order}">${order.description} </option>
+                </c:forEach>
+            </select>
+        </label>
+       <input type="submit" value="Сортировать">
+    </form>
 
 
-<c:forEach var="product" items="${requestScope.products}">
+    <c:forEach var="product" items="${requestScope.products}">
 
     <table>
         <tr>
@@ -68,7 +81,7 @@
 
         </tr>
     </table>
-  </c:forEach>
+    </c:forEach>
 
-</body>
+    </body>
 </html>

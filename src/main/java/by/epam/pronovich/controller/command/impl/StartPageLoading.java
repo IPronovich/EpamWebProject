@@ -26,7 +26,7 @@ public class StartPageLoading implements Command {
     private void getRandomProducts(HttpServletRequest req) {
         List<Product> products = ServiceProvider.getINSTANCE().getProductService().getAll();
         Collections.shuffle(products);
-        products = products.stream().limit(QUANTITY_OF_RANDOM_PRODUCTS_ON_START_PAGE).collect(Collectors.toList());
+        products = products.stream().filter(it -> it.getQuantity() > 0).limit(QUANTITY_OF_RANDOM_PRODUCTS_ON_START_PAGE).collect(Collectors.toList());
         req.setAttribute("products", products);
     }
 }

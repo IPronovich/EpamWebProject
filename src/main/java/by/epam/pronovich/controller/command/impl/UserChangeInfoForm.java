@@ -13,6 +13,6 @@ public class UserChangeInfoForm implements Command {
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp, ServletContext servletContext) throws ServletException, IOException {
-        servletContext.getRequestDispatcher(JspPathUtil.get("save-profile")).forward(req, resp);
+        servletContext.getRequestDispatcher(JspPathUtil.get("user-change-info-form")).forward(req, resp);
     }
 }

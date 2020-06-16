@@ -39,6 +39,8 @@
                 <select name="catalogId">
                     <c:forEach var="catalog" items="${requestScope.catalog}">
                         <option value="${catalog.id}">${catalog.description}</option>
+                        <option selected
+                                value="${requestScope.product.catalog.id}">${requestScope.product.catalog.description} </option>
                     </c:forEach>
                 </select>
             </label>
@@ -48,6 +50,8 @@
                 <select name="brandId">
                     <c:forEach var="brand" items="${requestScope.brands}">
                         <option value="${brand.id}">${brand.name}</option>
+                        <option selected
+                                value="${requestScope.product.brand.id}">${requestScope.product.brand.name}</option>
                     </c:forEach>
                 </select>
             </label>
@@ -86,6 +90,6 @@
         </button>
     </form>
 </div>
-    
+
 </body>
 </html>

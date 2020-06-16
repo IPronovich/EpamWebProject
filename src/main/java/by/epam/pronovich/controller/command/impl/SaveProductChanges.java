@@ -18,7 +18,7 @@ public class SaveProductChanges implements Command {
     public void execute(HttpServletRequest req, HttpServletResponse resp, ServletContext servletContext) throws ServletException, IOException {
         Product product = getProductFrom(req);
         ServiceProvider.getINSTANCE().getProductService().update(product);
-        resp.sendRedirect("/product-info?id=" + product.getId());
+        resp.sendRedirect("/productInfo?id=" + product.getId());
     }
 
     private Product getProductFrom(HttpServletRequest req) {

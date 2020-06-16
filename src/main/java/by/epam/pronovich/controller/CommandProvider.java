@@ -6,12 +6,13 @@ import by.epam.pronovich.controller.command.CommandName;
 import by.epam.pronovich.controller.command.impl.*;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import static by.epam.pronovich.controller.command.CommandName.*;
 
 public class CommandProvider {
 
-    private final HashMap<CommandName, Command> commandBox = new HashMap<>();
+    private final Map<CommandName, Command> commandBox = new HashMap<>();
 
 
     public CommandProvider() {
@@ -21,7 +22,7 @@ public class CommandProvider {
         commandBox.put(SAVE_USER_CHANGES, new SaveUserChanges());
         commandBox.put(ADD_PRODUCT_FORM, new AddProductForm());
         commandBox.put(ADD_PRODUCT, new AddProduct());
-        commandBox.put(CHANGE_PRODUCT_INFO_FORM, new ChangeProductInfoForm());
+        commandBox.put(CHANGE_PRODUCT_INFO_FORM, new ProductInfoChangeForm());
         commandBox.put(SAVE_PRODUCT_CHANGES, new SaveProductChanges());
         commandBox.put(AUTORIZATION, new Autorization());
         commandBox.put(REGISTRATION, new Registration());
@@ -30,6 +31,8 @@ public class CommandProvider {
         commandBox.put(CATALOG, new CatalogShowing());
         commandBox.put(REVIEW, new ReviewShowing());
         commandBox.put(PRODUCTINFO, new ProductInfoShowing());
+        commandBox.put(OLENER, new StartPageLoading());
+        commandBox.put(PRODUCT, new ProductsShowing());
     }
 
 

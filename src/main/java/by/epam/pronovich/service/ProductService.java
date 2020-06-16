@@ -16,4 +16,8 @@ public interface ProductService {
     Product save(Product product);
 
     void update(Product product);
+
+    List<Product> sort(List<Product> productList, String order);
+
+
 }
