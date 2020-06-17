@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@include file="language.jsp" %>
 <style>
     .divh2 {
         height: 8%; /* Размеры */
@@ -22,7 +23,7 @@
             <button type="submit"
                     style="background: #ffce11; font-family: Verdana ; font-weight: bold;border-radius: 20px;
                      color: black; height: 45px; width: 100px; margin-top: 8px">
-                КАТАЛОГ
+                <fmt:message key="header.catalog"/>
             </button>
         </a>
     </div>
@@ -60,7 +61,7 @@
             <button type="submit"
                     style="background: #ffce11; font-family: Verdana ; font-weight: bold;border-radius: 20px;
                     color: black; height: 45px; width: auto; margin-top: auto">
-                Кабинет Администратора
+                <fmt:message key="header.adminPage"/>
             </button>
         </a>
     </div>

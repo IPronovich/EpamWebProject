@@ -17,5 +17,6 @@ public enum CommandName {
     REVIEW,
     PRODUCTINFO,
     OLENER,
-    PRODUCT
+    PRODUCT,
+    LOKALIZATION
 }

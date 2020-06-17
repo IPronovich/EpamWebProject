@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fun" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>OLener</title>
@@ -36,7 +37,7 @@
                     </tr>
                     <tr>
                         <th width="700px" style="border-color: white; font-size: x-large">
-                                ${product.price} р.
+                            <fmt:formatNumber value="${product.price}" type="CURRENCY" currencySymbol="р."/>
                         </th>
                     </tr>
                 </table>

@@ -17,7 +17,7 @@ public class AddProduct implements Command {
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp, ServletContext servletContext) throws ServletException, IOException {
         Product product = ServiceProvider.getINSTANCE().getProductService().save(getProductWithoutIdFrom(req));
-        resp.sendRedirect("/product-info?id=" + product.getId());
+        resp.sendRedirect("/productInfo?id=" + product.getId());
     }
 
     private Product getProductWithoutIdFrom(HttpServletRequest req) {

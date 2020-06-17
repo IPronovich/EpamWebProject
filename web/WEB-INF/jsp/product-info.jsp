@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fun" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
 <html>
@@ -54,19 +54,26 @@
         <th width="190px">
             <c:if test="${requestScope.product.quantity == 0}"><h2 style="text-align: center">Нет в наличии</h2></c:if>
             <c:if test="${requestScope.product.quantity != 0}"><h2
-                    style="text-align: center">${requestScope.product.price} р.</h2></c:if>
+                    style="text-align: center">
+                <fmt:formatNumber value=" ${requestScope.product.price}" type="CURRENCY" currencySymbol="р."/></h2>
+            </c:if>
         </th>
 
         <th width="190px">
-            <button type="submit"
-                    style="background: orange; color: white; height: auto; width: auto; margin-left: 40px">
-                <h2 style="text-align: center">В корзину</h2>
-            </button>
+
+            <form action="/basket" method="post" style="display: inline">
+                <input type="hidden" value="${requestScope.product.id}" name="productId">
+                <button type="submit" name="command" value="add_to_basket"
+                        style="background: orange; color: white; height: auto; width: auto; margin-left: 40px">
+                    <h2 style="text-align: center">В корзину</h2>
+
+                </button>
+            </form>
 
         </th>
     </tr>
 </table>
-<div>
+<f>
     <a style="text-decoration: none" href="${pageContext.request.contextPath}/review?id=${requestScope.product.id}">
         <button type="submit"
                 style="border: 5px solid #dddddd; background: white; color: #0a0a49; height: 50px; width: auto;">
@@ -81,6 +88,7 @@
                 style="background: green; border-radius: 10px; color: white; height: 40px; width:auto">
             ИЗМЕНИТЬ
         </button>
-</div>
+    </form>
+
 </body>
 </html>

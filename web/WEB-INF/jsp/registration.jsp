@@ -6,9 +6,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@include file="language.jsp" %>
 <html>
 <head>
-    <title>Регистрация</title>
+    <title><fmt:message key="form.registration"/></title>
     <style>
         div {
             width: 300px;
@@ -27,26 +28,26 @@
         <img src="${pageContext.servletContext.contextPath}/images/logo.jpg" style="margin-top: 20px">
     </a>
     <form action="${pageContext.request.contextPath}/registration" method="post">
-        <p><span style="color: red; margin: 70px; font-size: x-large">РЕГИСТРАЦИЯ</span></p>
+        <p><span style="color: red; margin: 70px; font-size: x-large"><fmt:message key="form.registration"/> </span></p>
         <p>
-            <label>Придумайте Ваш логин <br>
+            <label><fmt:message key="form.messageRegistrLogin"/><br>
                 <input type="text" name="login" placeholder="login" required>
             </label>
         </p>
         <p>
-            <label>Придумайте Ваш пароль
+            <label><fmt:message key="form.messageRegistrPassword"/>
                 <input type="password" name="password" placeholder="password" required minlength="6" min="6"> <br>
             </label>
-            минимум 6 символов
+            <fmt:message key="form.messageRegistrMinSymbol"/>
         </p>
         <p>
-            <label>Повторите Ваш пароль
+            <label><fmt:message key="form.messageRegistrPasswordRepeat"/>
                 <input type="password" name="repeatPassword" placeholder="password" required minlength="6" min="6">
             </label>
         </p>
         <button type="submit" name="command" value="registration"
                 style="background: green; color: white">
-            ЗАРЕГЕСТРИРОВАТЬСЯ
+            <fmt:message key="ok"/>
         </button>
     </form>
 </div>

@@ -33,6 +33,7 @@ public class CommandProvider {
         commandBox.put(PRODUCTINFO, new ProductInfoShowing());
         commandBox.put(OLENER, new StartPageLoading());
         commandBox.put(PRODUCT, new ProductsShowing());
+        commandBox.put(LOKALIZATION, new Lokalization());
     }
 
 

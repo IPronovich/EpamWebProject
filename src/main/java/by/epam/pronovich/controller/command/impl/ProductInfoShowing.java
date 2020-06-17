@@ -20,6 +20,7 @@ public class ProductInfoShowing implements Command {
         req.setAttribute("product", product);
         req.setAttribute("count_review", getCountOfReview(id));
         servletContext.getRequestDispatcher(JspPathUtil.get("product-info")).forward(req, resp);
+
     }
 
     private int getCountOfReview(String id) {
