@@ -12,18 +12,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class SaveProductChanges implements Command {
+public class ProductAdder implements Command {
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp, ServletContext servletContext) throws ServletException, IOException {
-        Product product = getProductFrom(req);
-        ServiceProvider.getINSTANCE().getProductService().update(product);
+        Product product = ServiceProvider.getINSTANCE().getProductService().save(getProductWithoutIdFrom(req));
         resp.sendRedirect("/productInfo?id=" + product.getId());
     }
 
-    private Product getProductFrom(HttpServletRequest req) {
+    private Product getProductWithoutIdFrom(HttpServletRequest req) {
         return Product.builder()
-                .id(Integer.valueOf(req.getParameter("productId")))
                 .catalog(Catalog.builder()
                         .id(Integer.valueOf(req.getParameter("catalogId"))).build())
                 .brand(Brand.builder()

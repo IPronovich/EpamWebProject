@@ -8,7 +8,7 @@ public interface CustomerService {
 
     Customer autorize(String login, String password);
 
-    void save(Customer customer);
+    Customer getById(Integer id);
 
-    void update (Customer customer);
+    void update(Customer customer);
 }

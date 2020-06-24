@@ -13,16 +13,31 @@ import java.sql.SQLException;
 
 public class CustomerDAOImpl implements CustomerDAO {
 
-    private final String LOGINATION = "SELECT ID as c_id, LOGIN as c_login, EMAIL as c_email, NAME as c_name," +
-            " LAST_NAME as c_latName, ROLE as c_role, PHONE_NUMBER as c_phone, ADDRESS as c_address" +
-            " FROM shop.customer WHERE login=? AND password=?";
+    private String GET_ALL = "select id, login, email, name, last_name, role, phone_number, address from shop.customer";
+
+    private final String LOGINATION = GET_ALL + " WHERE login=? AND password=?";
 
     private String REGISTR = "INSERT into shop.customer (login,password,role) values (?,?,?)";
 
-    private String SAVE = "INSERT into shop.customer (login, email, name, last_name, phone_number, address) " +
-            "values (?,?,?,?,?,?)";
+    private String GET_BY_ID = GET_ALL + " where id=?";
 
     private String UPDATE = "UPDATE shop.customer SET email=?, name=?, last_name=?, phone_number=?, address=? where id=?";
+
+    @Override
+    public Customer getById(Integer id) {
+        Customer customer = null;
+        try (Connection connection = ConnectionPool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_BY_ID)) {
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                customer = createCustomer(resultSet);
+            }
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+        return customer;
+    }
 
     @Override
     public void update(Customer customer) {
@@ -77,14 +92,14 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     private Customer createCustomer(ResultSet resultSet) throws SQLException {
         return Customer.builder()
-                .id(resultSet.getInt("c_id"))
-                .login(resultSet.getString("c_login"))
-                .email(resultSet.getString("c_email"))
-                .name(resultSet.getString("c_name"))
-                .lastName(resultSet.getString("c_latName"))
-                .role(Role.valueOf(resultSet.getString("c_role")))
-                .phoneNumber(resultSet.getInt("c_phone"))
-                .address(resultSet.getString("c_address"))
+                .id(resultSet.getInt("id"))
+                .login(resultSet.getString("login"))
+                .email(resultSet.getString("email"))
+                .name(resultSet.getString("name"))
+                .lastName(resultSet.getString("last_name"))
+                .role(Role.valueOf(resultSet.getString("role")))
+                .phoneNumber(resultSet.getInt("phone_number"))
+                .address(resultSet.getString("address"))
                 .build();
     }
 }

@@ -20,7 +20,10 @@
             style="border: 5px solid white; background: #14ad14; color:white;  border-radius: 10px; height: 50px; width: auto;">
         <h2 style="text-align: center; display: inline">ДОБАВИТЬ ТОВАР </h2>
     </button>
+    <button type="submit" name="command" value="show_orders"
+            style="border: 5px solid white; background:skyblue; color:white;  border-radius: 10px; height: 50px; width: auto;">
+        <h2 style="text-align: center; display: inline"> ЗАКАЗЫ </h2>
+    </button>
 </form>
-
 </body>
 </html>

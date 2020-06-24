@@ -1,7 +1,7 @@
 package by.epam.pronovich.dao;
 
 import by.epam.pronovich.dao.impl.*;
-import by.epam.pronovich.model.Brand;
+import by.epam.pronovich.model.ProductBooking;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,5 +18,7 @@ public class DAOProvider {
     private final ProductDAO productDAO = new ProductDAOImpl();
     private final ReviewDAO reviewDAO = new ReviewDAOImpl();
     private final BrandDAO brandDAO = new BrandDAOImpl();
+    private final BookingDAO bookingDAO = new BookingDAOImpl();
+    private final ProductBookingDAO productBookingDAO = new ProductBookingDAOImpl();
 
 }

@@ -31,17 +31,11 @@ public class ProductDAOImpl implements ProductDAO {
     @Override
     public void update(Product product) {
         try (Connection connection = ConnectionPool.getConnection();
+//             executeStatement(product, UPDATE);
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE)) {
-            preparedStatement.setInt(1, product.getCatalog().getId());
-            preparedStatement.setInt(2, product.getBrand().getId());
-            preparedStatement.setString(3, product.getModel());
-            preparedStatement.setString(4, product.getDescription());
-            preparedStatement.setDouble(5, product.getPrice());
-            preparedStatement.setString(6, product.getImg());
-            preparedStatement.setInt(7, product.getQuantity());
+            prepareBasicCustomer(product, preparedStatement);
             preparedStatement.setInt(8, product.getId());
             preparedStatement.executeUpdate();
-            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
         } catch (SQLException e) {
             throw new DAOException(e);
         }
@@ -52,13 +46,7 @@ public class ProductDAOImpl implements ProductDAO {
     public Product save(Product product) {
         try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SAVE, RETURN_GENERATED_KEYS)) {
-            preparedStatement.setInt(1, product.getCatalog().getId());
-            preparedStatement.setInt(2, product.getBrand().getId());
-            preparedStatement.setString(3, product.getModel());
-            preparedStatement.setString(4, product.getDescription());
-            preparedStatement.setDouble(5, product.getPrice());
-            preparedStatement.setString(6, product.getImg());
-            preparedStatement.setInt(7, product.getQuantity());
+            prepareBasicCustomer(product, preparedStatement);
             preparedStatement.executeUpdate();
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
             if (generatedKeys.next()) {
@@ -69,6 +57,16 @@ public class ProductDAOImpl implements ProductDAO {
             throw new DAOException(e);
         }
         return product;
+    }
+
+    private void prepareBasicCustomer(Product product, PreparedStatement preparedStatement) throws SQLException {
+        preparedStatement.setInt(1, product.getCatalog().getId());
+        preparedStatement.setInt(2, product.getBrand().getId());
+        preparedStatement.setString(3, product.getModel());
+        preparedStatement.setString(4, product.getDescription());
+        preparedStatement.setDouble(5, product.getPrice());
+        preparedStatement.setString(6, product.getImg());
+        preparedStatement.setInt(7, product.getQuantity());
     }
 
     @Override

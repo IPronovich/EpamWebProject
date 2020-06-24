@@ -18,9 +18,10 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void save(Customer customer) {
-        DAOProvider.getINSTANCE().getCustomerDAO().update(customer);
+    public Customer getById(Integer id) {
+        return DAOProvider.getINSTANCE().getCustomerDAO().getById(id);
     }
+
 
     @Override
     public void update(Customer customer) {

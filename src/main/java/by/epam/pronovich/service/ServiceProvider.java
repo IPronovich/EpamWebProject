@@ -17,5 +17,7 @@ public class ServiceProvider {
     private final ReviewService reviewService = new ReviewServiceImpl();
     private final CatalogService catalogService = new CatalogServiceImpl();
     private final BrandService brandService = new BrandServiceImpl();
+    private final BookingService bookingService = new BookingServiceImpl();
+    private final ProductBookingService productBookingService = new ProductBookingServiceImpl();
 
 }

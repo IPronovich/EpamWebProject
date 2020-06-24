@@ -9,7 +9,7 @@
 <%@include file="language.jsp" %>
 <style>
     .divh2 {
-        height: 8%; /* Размеры */
+        height: 12%; /* Размеры */
         outline: 1px solid darkgrey; /* Чёрная рамка */
         margin: auto;
         background: #ffce11;
@@ -22,7 +22,7 @@
         <a style="text-decoration: none" href="/catalog">
             <button type="submit"
                     style="background: #ffce11; font-family: Verdana ; font-weight: bold;border-radius: 20px;
-                     color: black; height: 45px; width: 100px; margin-top: 8px">
+                     color: black; height: 45px; width: 100px; margin-top: 30px">
                 <fmt:message key="header.catalog"/>
             </button>
         </a>

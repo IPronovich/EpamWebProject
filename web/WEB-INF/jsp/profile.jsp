@@ -105,6 +105,12 @@
             ВЫЙТИ
         </button>
     </form>
+    <form action="/profile" method="post" style="display: inline">
+        <button type="submit" name="command" value="history"
+                style="background:deepskyblue; border-radius: 10px; color: white; height: 40px; width:auto">
+            ИСТОРИЯ ЗАКАЗОВ
+        </button>
+    </form>
 </div>
 
 

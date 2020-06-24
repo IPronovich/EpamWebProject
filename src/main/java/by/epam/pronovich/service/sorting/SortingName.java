@@ -1,7 +1,11 @@
 package by.epam.pronovich.service.sorting;
 
-public enum SortingName {
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
+@Getter
+@AllArgsConstructor
+public enum SortingName {
 
     PRICEASC("Дешевые"),
     PRICEDESC("Дорогие"),
@@ -10,11 +14,4 @@ public enum SortingName {
 
     private final String description;
 
-    SortingName(String description) {
-        this.description = description;
-    }
-
-    public String getDescription() {
-        return description;
-    }
 }
