@@ -29,7 +29,7 @@
         <img src="${pageContext.servletContext.contextPath}/images/logo.jpg" style="margin-top: 20px">
     </a>
 
-    <form action="${pageContext.request.contextPath}/autorization" method="post">
+    <form action="${pageContext.request.contextPath}/authentication" method="post">
         <p><span style="color: red; margin: 70px; font-size: x-large"><fmt:message key="form.autorization"/> </span></p>
         <p>
             <label><fmt:message key="form.messageLogin"/> <br>
@@ -42,7 +42,7 @@
             </label>
         </p>
 
-        <button type="submit" name="command" value="autorization"
+        <button type="submit" name="command" value="authentication"
                 style="background: green; color: white">
             <fmt:message key="header.signIn"/>
         </button>

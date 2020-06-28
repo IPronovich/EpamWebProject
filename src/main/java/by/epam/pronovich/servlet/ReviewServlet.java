@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/review")
+@WebServlet(value = "/review", name = "ReviewServlet")
 public class ReviewServlet extends HttpServlet {
 
     @Override

@@ -10,12 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/autorization")
-public class AutorizationServlet extends HttpServlet {
+@WebServlet("/authentication")
+public class AuthenticationServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        getServletContext().getRequestDispatcher(JspPathUtil.get("autorization")).forward(req, resp);
+        getServletContext().getRequestDispatcher(JspPathUtil.get("authentication")).forward(req, resp);
     }
 
     @Override

@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/admin-page")
+@WebServlet(value = "/admin-page", name = "AdminServlet")
 public class AdminServlet extends HttpServlet {
 
     @Override

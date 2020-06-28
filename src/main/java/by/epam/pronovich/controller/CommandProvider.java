@@ -18,12 +18,12 @@ public class CommandProvider {
         commandBox.put(WRONG_REQUEST, new WrongRequest());
         commandBox.put(LOGOUT, new Logout());
         commandBox.put(USER_CHANGE_INFO_FORM, new UserChangeInfoForm());
-        commandBox.put(SAVE_USER_CHANGES, new UserChangesSaver());
+        commandBox.put(SAVE_USER_CHANGES, new SaveUserChanges());
         commandBox.put(ADD_PRODUCT_FORM, new ProductAdderForm());
         commandBox.put(ADD_PRODUCT, new ProductAdder());
         commandBox.put(CHANGE_PRODUCT_INFO_FORM, new ProductInfoChangeForm());
         commandBox.put(SAVE_PRODUCT_CHANGES, new ProductChangesSaver());
-        commandBox.put(AUTORIZATION, new Autorization());
+        commandBox.put(AUTHENTICATION, new Authentication());
         commandBox.put(REGISTRATION, new Registration());
         commandBox.put(REVIEW_FORM, new ReviewForm());
         commandBox.put(ADD_REVIEW, new ReviewAdder());

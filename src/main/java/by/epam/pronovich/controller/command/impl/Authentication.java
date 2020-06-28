@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class Autorization implements Command {
+public class Authentication implements Command {
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp, ServletContext servletContext) throws ServletException, IOException {
@@ -18,7 +18,7 @@ public class Autorization implements Command {
         String password = req.getParameter("password");
         Customer customer = ServiceProvider.getINSTANCE().getCustomerService().autorize(login, password);
         if (customer == null) {
-            resp.sendRedirect("/autorization");
+            resp.sendRedirect("/authentication");
         } else {
             req.getSession().setAttribute("customer", customer);
             resp.sendRedirect("/olener");

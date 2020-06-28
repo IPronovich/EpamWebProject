@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: koksR4
@@ -56,15 +57,18 @@
             </button>
         </a>
     </div>
-    <div style="display: inline; margin-left: 100px">
-        <a style="text-decoration: none" href="/admin-page">
-            <button type="submit"
-                    style="background: #ffce11; font-family: Verdana ; font-weight: bold;border-radius: 20px;
+
+    <c:if test="${not empty sessionScope.customer && sessionScope.customer.role.name().equals('ADMIN')}">
+        <div style="display: inline; margin-left: 100px">
+            <a style="text-decoration: none" href="/admin-page">
+                <button type="submit"
+                        style="background: #ffce11; font-family: Verdana ; font-weight: bold;border-radius: 20px;
                     color: black; height: 45px; width: auto; margin-top: auto">
-                <fmt:message key="header.adminPage"/>
-            </button>
-        </a>
-    </div>
+                    <fmt:message key="header.adminPage"/>
+                </button>
+            </a>
+        </div>
+    </c:if>
 
 </div>
 

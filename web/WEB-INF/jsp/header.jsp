@@ -8,6 +8,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="language.jsp" %>
+<link href="/bootstrap/1/css/bootstrap.min.css" rel="stylesheet">
+<link href="/bootstrap/1/css/bootstrap-theme.min.css" rel="stylesheet">
 
 <style>
     .divT {

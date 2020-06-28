@@ -59,18 +59,18 @@
             </c:if>
         </th>
 
-        <th width="190px">
+        <c:if test="${not empty sessionScope.customer}">
+            <th width="190px">
+                <form action="/basket" method="post" style="display: inline">
+                    <input type="hidden" value="${requestScope.product.id}" name="productId">
+                    <button type="submit" name="command" value="add_to_basket"
+                            style="background: orange; color: white; height: auto; width: auto; margin-left: 40px">
+                        <h2 style="text-align: center">В корзину</h2>
+                    </button>
+                </form>
+            </th>
+        </c:if>
 
-            <form action="/basket" method="post" style="display: inline">
-                <input type="hidden" value="${requestScope.product.id}" name="productId">
-                <button type="submit" name="command" value="add_to_basket"
-                        style="background: orange; color: white; height: auto; width: auto; margin-left: 40px">
-                    <h2 style="text-align: center">В корзину</h2>
-
-                </button>
-            </form>
-
-        </th>
     </tr>
 </table>
 <f>
@@ -82,6 +82,7 @@
         </button>
     </a>
 
+    <c:if test="${not empty sessionScope.customer && sessionScope.customer.role.name().equals('ADMIN')}">
     <form action="/admin-page" method="post" style="display: inline">
         <input type="hidden" value="${requestScope.product.id}" name="productId">
         <button type="submit" name="command" value="change_product_info_form"
@@ -89,6 +90,8 @@
             ИЗМЕНИТЬ
         </button>
     </form>
+    </c:if>
+
 
 </body>
 </html>

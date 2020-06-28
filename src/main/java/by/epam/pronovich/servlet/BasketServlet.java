@@ -9,7 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 
-@WebServlet("/basket")
+@WebServlet(value = "/basket", name = "BasketServlet")
 public class BasketServlet extends HttpServlet {
 
     @Override
