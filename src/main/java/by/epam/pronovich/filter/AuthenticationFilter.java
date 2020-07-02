@@ -14,14 +14,14 @@ public class AuthenticationFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        if (isUserAutificate(servletRequest)) {
+        if (isUserAuthenticate(servletRequest)) {
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
-            ((HttpServletResponse) servletResponse).sendRedirect("/autorization");
+            ((HttpServletResponse) servletResponse).sendRedirect("/authentication");
         }
     }
 
-    private boolean isUserAutificate(ServletRequest servletRequest) {
+    private boolean isUserAuthenticate(ServletRequest servletRequest) {
         Customer customer = (Customer) ((HttpServletRequest) servletRequest).getSession().getAttribute("customer");
         return Objects.nonNull(customer);
     }

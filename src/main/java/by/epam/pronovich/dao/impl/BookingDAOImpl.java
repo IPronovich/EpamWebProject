@@ -7,6 +7,8 @@ import by.epam.pronovich.model.Booking;
 import by.epam.pronovich.model.BookingStatus;
 import by.epam.pronovich.model.Customer;
 import by.epam.pronovich.util.ConnectionPool;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -17,6 +19,8 @@ import static by.epam.pronovich.model.BookingStatus.INPROCESSING;
 import static java.sql.Statement.RETURN_GENERATED_KEYS;
 
 public class BookingDAOImpl implements BookingDAO {
+
+    private final Logger logger = LoggerFactory.getLogger(BookingDAOImpl.class);
 
     private final String ADD = "INSERT INTO shop.booking (date, status, customer_id) VALUES (?,?,?)";
     private final String GET_ALL = "SELECT id, date, status, customer_id from shop.booking";
@@ -39,29 +43,11 @@ public class BookingDAOImpl implements BookingDAO {
                         .build();
                 bookingList.add(booking);
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            logger.warn("Failed get all booking", e);
+            throw new DAOException(e);
         }
         return bookingList;
-    }
-
-    @Override
-    public Booking add(Customer customer) {
-        Booking booking = Booking.builder().date(LocalDate.now()).bookingStatus(INPROCESSING).customer(customer).build();
-        try (Connection connection = ConnectionPool.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(ADD, RETURN_GENERATED_KEYS)) {
-            preparedStatement.setDate(1, Date.valueOf(booking.getDate()));
-            preparedStatement.setString(2, booking.getBookingStatus().name());
-            preparedStatement.setInt(3, booking.getCustomer().getId());
-            preparedStatement.executeUpdate();
-            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
-            if (generatedKeys.next()) {
-                booking.setId(generatedKeys.getInt(1));
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return booking;
     }
 
     @Override
@@ -80,10 +66,31 @@ public class BookingDAOImpl implements BookingDAO {
                         .build();
                 bookingList.add(booking);
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            logger.warn("Failed get all booking by customer", e);
+            throw new DAOException(e);
         }
         return bookingList;
+    }
+
+    @Override
+    public Booking add(Customer customer) {
+        Booking booking = Booking.builder().date(LocalDate.now()).bookingStatus(INPROCESSING).customer(customer).build();
+        try (Connection connection = ConnectionPool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(ADD, RETURN_GENERATED_KEYS)) {
+            preparedStatement.setDate(1, Date.valueOf(booking.getDate()));
+            preparedStatement.setString(2, booking.getBookingStatus().name());
+            preparedStatement.setInt(3, booking.getCustomer().getId());
+            preparedStatement.executeUpdate();
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                booking.setId(generatedKeys.getInt(1));
+            }
+        } catch (SQLException e) {
+            logger.warn("Failed add booking", e);
+            throw new DAOException(e);
+        }
+        return booking;
     }
 
     @Override
@@ -94,6 +101,7 @@ public class BookingDAOImpl implements BookingDAO {
             preparedStatement.setInt(2, booking.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
+            logger.warn("Failed update booking status", e);
             throw new DAOException(e);
         }
     }

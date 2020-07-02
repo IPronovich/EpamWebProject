@@ -1,10 +1,13 @@
 package by.epam.pronovich.dao.impl;
 
 import by.epam.pronovich.dao.ReviewDAO;
+import by.epam.pronovich.exception.DAOException;
 import by.epam.pronovich.model.Customer;
 import by.epam.pronovich.model.Product;
 import by.epam.pronovich.model.Review;
 import by.epam.pronovich.util.ConnectionPool;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,11 +18,12 @@ import java.util.List;
 
 public class ReviewDAOImpl implements ReviewDAO {
 
-    private final String GET_ALL = "SELECT r.id as r_id, text, customer_id, product_id, login " +
-            "from review as r inner join customer c on r.customer_id = c.id";
+    private final Logger logger = LoggerFactory.getLogger(ReviewDAOImpl.class);
 
-    private final String GET_BY_PRODUCT_ID = "SELECT r.id as r_id, text,title, customer_id, product_id, login " +
-            "from shop.review as r inner join shop.customer c on r.customer_id = c.id where product_id=?";
+    private final String GET_ALL = "SELECT r.id as r_id, text,title, customer_id, product_id, login" +
+            "from shop.review as r inner join shop.customer c on r.customer_id = c.id";
+
+    private final String GET_BY_PRODUCT_ID = GET_ALL + " where product_id=?";
 
     private final String ADD = "INSERT into shop.review (title, text, customer_id, product_id) VALUES (?,?,?,?)";
 
@@ -27,19 +31,12 @@ public class ReviewDAOImpl implements ReviewDAO {
     public void add(Review review) {
         try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(ADD)) {
-            preparedStatement.setString(1, review.getTitle());
-            preparedStatement.setString(2, review.getText());
-            preparedStatement.setInt(3, review.getCustomer().getId());
-            preparedStatement.setInt(4, review.getProduct().getId());
+            prepareProductForAdding(review, preparedStatement);
             preparedStatement.executeUpdate();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            logger.warn("Failed add review", e);
+            throw new DAOException(e);
         }
-    }
-
-    @Override
-    public List<Review> getAll() {
-        return null;
     }
 
     @Override
@@ -52,13 +49,19 @@ public class ReviewDAOImpl implements ReviewDAO {
             while (resultSet.next()) {
                 reviews.add(getReviewFrom(resultSet));
             }
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            logger.warn("Failed get all review by product id", e);
+            throw new DAOException(e);
         }
         return reviews;
     }
 
+    private void prepareProductForAdding(Review review, PreparedStatement preparedStatement) throws SQLException {
+        preparedStatement.setString(1, review.getTitle());
+        preparedStatement.setString(2, review.getText());
+        preparedStatement.setInt(3, review.getCustomer().getId());
+        preparedStatement.setInt(4, review.getProduct().getId());
+    }
 
     private Review getReviewFrom(ResultSet resultSet) throws SQLException {
         return Review.builder()

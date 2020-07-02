@@ -14,7 +14,7 @@ public class Registration implements Command {
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp, ServletContext servletContext) throws ServletException, IOException {
         String login = req.getParameter("login");
-        Integer password = Integer.valueOf(req.getParameter("password"));
+        String password = req.getParameter("password");
         ServiceProvider.getINSTANCE().getCustomerService().registr(login, password);
         resp.sendRedirect("/olener");
     }

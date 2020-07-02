@@ -48,7 +48,7 @@
 
     <c:if test="${ empty sessionScope.customer}">
         <div style="display: inline; margin-left: 50px">
-            <a style="text-decoration: none" href="/autorization">
+            <a style="text-decoration: none" href="/authentication">
                 <button type="submit"
                         style="background: silver; border-radius: 20px; color: black; height: 40px; width: 75px">
                     <fmt:message key="header.signIn"/>

@@ -1,31 +1,29 @@
 package by.epam.pronovich;
 
-
-import by.epam.pronovich.controller.CommandProvider;
-import by.epam.pronovich.controller.Controller;
-import by.epam.pronovich.controller.command.Command;
-import by.epam.pronovich.dao.BookingDAO;
-import by.epam.pronovich.dao.DAOProvider;
-import by.epam.pronovich.dao.impl.ProductBookingDAOImpl;
+import by.epam.pronovich.dao.impl.BookingDAOImpl;
 import by.epam.pronovich.model.Booking;
-import by.epam.pronovich.model.Customer;
-import by.epam.pronovich.model.Product;
-import by.epam.pronovich.model.ProductBooking;
 import by.epam.pronovich.service.ServiceProvider;
-import by.epam.pronovich.service.sorting.impl.NameAscSorting;
-import by.epam.pronovich.service.sorting.impl.NameDescSorting;
-import by.epam.pronovich.service.sorting.impl.PriceAscSorting;
-import by.epam.pronovich.service.sorting.impl.PriceDescSorting;
+import org.apache.log4j.Logger;
 
-import java.math.BigDecimal;
+
 import java.util.List;
 
+
 public class Main {
+    static Logger logger = Logger.getLogger(Main.class);
 
 
     public static void main(String[] args) {
+        ServiceProvider.getINSTANCE().getBrandService().getAll();
 
-        }
+        System.out.println();
+
+
+        logger.info("ddsds");
+        logger.error("dsds");
+
+
     }
+}
 
 

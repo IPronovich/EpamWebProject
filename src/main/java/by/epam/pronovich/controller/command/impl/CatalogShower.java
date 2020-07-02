@@ -21,7 +21,7 @@ public class CatalogShower implements Command {
         if (id == null) {
             catalog = getMainCategory(req);
         } else {
-            catalog = getCategoryById(req, id);
+            catalog = getCategoryByParentId(req, id);
         }
         if (catalog.isEmpty()) {
             resp.sendRedirect("/product?categoryId=" + id);
@@ -30,14 +30,14 @@ public class CatalogShower implements Command {
         }
     }
 
-    private List<by.epam.pronovich.model.Catalog> getCategoryById(HttpServletRequest req, String id) {
+    private List<Catalog> getCategoryByParentId(HttpServletRequest req, String id) {
         List<by.epam.pronovich.model.Catalog> catalog;
         catalog = ServiceProvider.getINSTANCE().getCatalogService().getCategorysByParentId(Integer.valueOf(id));
         req.setAttribute("catalog", catalog);
         return catalog;
     }
 
-    private List<by.epam.pronovich.model.Catalog> getMainCategory(HttpServletRequest req) {
+    private List<Catalog> getMainCategory(HttpServletRequest req) {
         List<by.epam.pronovich.model.Catalog> catalog;
         catalog = ServiceProvider.getINSTANCE().getCatalogService().getAllMainCategory();
         req.setAttribute("catalog", catalog);

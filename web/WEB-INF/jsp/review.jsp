@@ -35,7 +35,7 @@
 
 <div>
     <c:if test="${ empty sessionScope.customer}">
-        <a style="text-decoration: none" href="${pageContext.request.contextPath}/autorization">
+        <a style="text-decoration: none" href="${pageContext.request.contextPath}/authentication">
             <button type="submit"
                     style="border: 5px solid white; background: #14ad14; color:white;  border-radius: 10px; height: 50px; width: auto;">
                 <h2 style="text-align: center; display: inline">ОСТАВИТЬ ОТЗЫВ </h2>

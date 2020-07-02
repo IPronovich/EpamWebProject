@@ -8,6 +8,8 @@ import by.epam.pronovich.model.Booking;
 import by.epam.pronovich.model.Product;
 import by.epam.pronovich.model.ProductBooking;
 import by.epam.pronovich.util.ConnectionPool;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,9 +20,9 @@ import java.util.List;
 
 public class ProductBookingDAOImpl implements ProductBookingDAO {
 
+    private final Logger logger = LoggerFactory.getLogger(ProductBookingDAOImpl.class);
 
     private final String ADD = "INSERT INTO shop.product_booking (booking_id, product_id) values (?, ?)";
-
     private final String GET_PRODUCTLIST_IN_BOOKING = "SELECT product_id " +
             "FROM shop.product_booking " +
             "where booking_id =?";
@@ -45,6 +47,7 @@ public class ProductBookingDAOImpl implements ProductBookingDAO {
                 productBookings.add(productBooking);
             }
         } catch (SQLException e) {
+            logger.warn("Failed get all ProductBooking", e);
             throw new DAOException(e);
         }
         return productBookings;
@@ -61,6 +64,7 @@ public class ProductBookingDAOImpl implements ProductBookingDAO {
             }
             preparedStatement.executeBatch();
         } catch (SQLException e) {
+            logger.warn("Failed add ProductBooking", e);
             throw new DAOException(e);
         }
     }

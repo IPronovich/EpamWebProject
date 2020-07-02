@@ -6,6 +6,8 @@ import by.epam.pronovich.model.Brand;
 import by.epam.pronovich.model.Catalog;
 import by.epam.pronovich.model.Product;
 import by.epam.pronovich.util.ConnectionPool;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -14,6 +16,8 @@ import java.util.List;
 import static java.sql.Statement.RETURN_GENERATED_KEYS;
 
 public class ProductDAOImpl implements ProductDAO {
+
+    private final Logger logger = LoggerFactory.getLogger(ProductDAOImpl.class);
 
     private final String GET_ALL = "SELECT p.id as p_id, catalog_id, brand_id, model, p.description as p_description, " +
             "price, product_img, quantity_in_stock, parent_id, c.description as c_description, " +
@@ -31,43 +35,32 @@ public class ProductDAOImpl implements ProductDAO {
     @Override
     public void update(Product product) {
         try (Connection connection = ConnectionPool.getConnection();
-//             executeStatement(product, UPDATE);
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE)) {
-            prepareBasicCustomer(product, preparedStatement);
-            preparedStatement.setInt(8, product.getId());
+            prepareProductForUpdating(product, preparedStatement);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
+            logger.warn("Failed update product info", e);
             throw new DAOException(e);
         }
     }
-
 
     @Override
     public Product save(Product product) {
         try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SAVE, RETURN_GENERATED_KEYS)) {
-            prepareBasicCustomer(product, preparedStatement);
+            prepareProductForSaving(product, preparedStatement);
             preparedStatement.executeUpdate();
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
             if (generatedKeys.next()) {
                 product.setId(generatedKeys.getInt("id"));
             }
-
         } catch (SQLException e) {
+            logger.warn("Failed save product", e);
             throw new DAOException(e);
         }
         return product;
     }
 
-    private void prepareBasicCustomer(Product product, PreparedStatement preparedStatement) throws SQLException {
-        preparedStatement.setInt(1, product.getCatalog().getId());
-        preparedStatement.setInt(2, product.getBrand().getId());
-        preparedStatement.setString(3, product.getModel());
-        preparedStatement.setString(4, product.getDescription());
-        preparedStatement.setDouble(5, product.getPrice());
-        preparedStatement.setString(6, product.getImg());
-        preparedStatement.setInt(7, product.getQuantity());
-    }
 
     @Override
     public List<Product> getByCategoryId(Integer id) {
@@ -80,6 +73,7 @@ public class ProductDAOImpl implements ProductDAO {
                 products.add(getProductFrom(resultSet));
             }
         } catch (SQLException e) {
+            logger.warn("Failed get product by category id", e);
             throw new DAOException(e);
         }
         return products;
@@ -97,6 +91,7 @@ public class ProductDAOImpl implements ProductDAO {
                 product = getProductFrom(resultSet);
             }
         } catch (SQLException e) {
+            logger.warn("Failed get product by id", e);
             throw new DAOException(e);
         }
         return product;
@@ -112,9 +107,25 @@ public class ProductDAOImpl implements ProductDAO {
                 products.add(getProductFrom(resultSet));
             }
         } catch (SQLException e) {
+            logger.warn("Failed get all product", e);
             throw new DAOException(e);
         }
         return products;
+    }
+
+    private void prepareProductForUpdating(Product product, PreparedStatement preparedStatement) throws SQLException {
+        prepareProductForSaving(product, preparedStatement);
+        preparedStatement.setInt(8, product.getId());
+    }
+
+    private void prepareProductForSaving(Product product, PreparedStatement preparedStatement) throws SQLException {
+        preparedStatement.setInt(1, product.getCatalog().getId());
+        preparedStatement.setInt(2, product.getBrand().getId());
+        preparedStatement.setString(3, product.getModel());
+        preparedStatement.setString(4, product.getDescription());
+        preparedStatement.setDouble(5, product.getPrice());
+        preparedStatement.setString(6, product.getImg());
+        preparedStatement.setInt(7, product.getQuantity());
     }
 
     private Product getProductFrom(ResultSet resultSet) throws SQLException {
@@ -137,5 +148,4 @@ public class ProductDAOImpl implements ProductDAO {
                 .build();
         return product;
     }
-
 }

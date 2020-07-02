@@ -5,6 +5,8 @@ import by.epam.pronovich.exception.DAOException;
 import by.epam.pronovich.model.Customer;
 import by.epam.pronovich.model.Role;
 import by.epam.pronovich.util.ConnectionPool;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,14 +15,12 @@ import java.sql.SQLException;
 
 public class CustomerDAOImpl implements CustomerDAO {
 
+    private final Logger logger = LoggerFactory.getLogger(CustomerDAOImpl.class);
+
     private String GET_ALL = "select id, login, email, name, last_name, role, phone_number, address from shop.customer";
-
     private final String LOGINATION = GET_ALL + " WHERE login=? AND password=?";
-
     private String REGISTR = "INSERT into shop.customer (login,password,role) values (?,?,?)";
-
     private String GET_BY_ID = GET_ALL + " where id=?";
-
     private String UPDATE = "UPDATE shop.customer SET email=?, name=?, last_name=?, phone_number=?, address=? where id=?";
 
     @Override
@@ -34,6 +34,7 @@ public class CustomerDAOImpl implements CustomerDAO {
                 customer = createCustomer(resultSet);
             }
         } catch (SQLException e) {
+            logger.warn("Failed get customer by id", e);
             throw new DAOException(e);
         }
         return customer;
@@ -43,30 +44,23 @@ public class CustomerDAOImpl implements CustomerDAO {
     public void update(Customer customer) {
         try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE)) {
-            preparedStatement.setString(1, customer.getEmail());
-            preparedStatement.setString(2, customer.getName());
-            preparedStatement.setString(3, customer.getLastName());
-            preparedStatement.setInt(4, customer.getPhoneNumber());
-            preparedStatement.setString(5, customer.getAddress());
-            preparedStatement.setInt(6, customer.getId());
+            prepareCustomerForUpdate(customer, preparedStatement);
             preparedStatement.executeUpdate();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            logger.warn("Failed update customer info", e);
+            throw new DAOException(e);
         }
-
     }
 
 
     @Override
-    public void registr(String login, Integer password) {
+    public void registr(String login, String password) {
         try (Connection connection = ConnectionPool.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(REGISTR)
-        ) {
-            preparedStatement.setString(1, login);
-            preparedStatement.setInt(2, password);
-            preparedStatement.setString(3, Role.USER.toString());
+             PreparedStatement preparedStatement = connection.prepareStatement(REGISTR)) {
+            prepareCustomerForRegistr(login, password, preparedStatement);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
+            logger.warn("Failed registrate customer", e);
             throw new DAOException(e);
         }
     }
@@ -76,14 +70,13 @@ public class CustomerDAOImpl implements CustomerDAO {
         Customer customer = null;
         try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(LOGINATION)) {
-            preparedStatement.setString(1, login);
-            preparedStatement.setString(2, password);
+            prepareCustomerForAutorize(login, password, preparedStatement);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 customer = createCustomer(resultSet);
             }
-
         } catch (SQLException e) {
+            logger.warn("Failed logination", e);
             throw new DAOException(e);
         }
         return customer;
@@ -101,5 +94,24 @@ public class CustomerDAOImpl implements CustomerDAO {
                 .phoneNumber(resultSet.getInt("phone_number"))
                 .address(resultSet.getString("address"))
                 .build();
+    }
+
+    private void prepareCustomerForUpdate(Customer customer, PreparedStatement preparedStatement) throws SQLException {
+        preparedStatement.setString(1, customer.getEmail());
+        preparedStatement.setString(2, customer.getName());
+        preparedStatement.setString(3, customer.getLastName());
+        preparedStatement.setInt(4, customer.getPhoneNumber());
+        preparedStatement.setString(5, customer.getAddress());
+        preparedStatement.setInt(6, customer.getId());
+    }
+
+    private void prepareCustomerForAutorize(String login, String password, PreparedStatement preparedStatement) throws SQLException {
+        preparedStatement.setString(1, login);
+        preparedStatement.setString(2, password);
+    }
+
+    private void prepareCustomerForRegistr(String login, String password, PreparedStatement preparedStatement) throws SQLException {
+        prepareCustomerForAutorize(login, password, preparedStatement);
+        preparedStatement.setString(3, Role.USER.toString());
     }
 }

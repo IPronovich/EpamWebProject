@@ -48,7 +48,6 @@ public class CommandProvider {
             CommandName commandName = valueOf(name.toUpperCase());
             command = commandBox.get(commandName);
         } catch (Exception e) {
-            System.out.println("WRONG COMMAND");
             command = commandBox.get(WRONG_REQUEST);
         }
         return command;

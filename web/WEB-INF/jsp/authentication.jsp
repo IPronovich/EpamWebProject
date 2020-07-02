@@ -9,7 +9,7 @@
 <%@include file="language.jsp" %>
 <html>
 <head>
-    <title><fmt:message key="form.autorization"/></title>
+    <title><fmt:message key="form.authentication"/></title>
     <style>
         div {
             width: 300px;
@@ -30,7 +30,7 @@
     </a>
 
     <form action="${pageContext.request.contextPath}/authentication" method="post">
-        <p><span style="color: red; margin: 70px; font-size: x-large"><fmt:message key="form.autorization"/> </span></p>
+        <p><span style="color: red; margin: 70px; font-size: x-large"><fmt:message key="form.authentication"/> </span></p>
         <p>
             <label><fmt:message key="form.messageLogin"/> <br>
                 <input type="text" name="login" placeholder="login">

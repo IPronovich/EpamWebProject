@@ -7,7 +7,7 @@ import by.epam.pronovich.service.CustomerService;
 public class CustomerServiceImpl implements CustomerService {
 
     @Override
-    public void registr(String login, Integer password) {
+    public void registr(String login, String password) {
         DAOProvider.getINSTANCE().getCustomerDAO().registr(login, password);
 
     }
