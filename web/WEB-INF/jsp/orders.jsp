@@ -22,7 +22,7 @@
 <style>
     table {
         font-family: arial, sans-serif;
-        width: 60%;
+        width: 70%;
     }
 
     th {
@@ -92,7 +92,7 @@
 
         <c:forEach items="${productBooking.products}" var="product">
             <tr>
-                <th><img height="60" width="60" src="${product.img}"></th>
+                <th><img height="80" width="80" src="${product.img}"></th>
                 <th> ${product.model}</th>
                 <th> ${product.description}</th>
                 <th><fmt:formatNumber value="${product.price}" type="CURRENCY" currencySymbol="р."/></th>

@@ -31,6 +31,26 @@ public class ProductDAOImpl implements ProductDAO {
     private final String UPDATE = "UPDATE shop.product SET catalog_id=?, brand_id=?, model=?, description=?, price=?," +
             " product_img=?, quantity_in_stock=? where id=?";
 
+    private final String SEARCH = GET_ALL + " where to_tsvector(b.name) || to_tsvector(model) " +
+            "|| to_tsvector(c.description) " +
+            "@@ plainto_tsquery(?)";
+
+    @Override
+    public List<Product> seach(String text) throws DAOException {
+        List<Product> productList = new ArrayList<>();
+        try (Connection connection = ConnectionPool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SEARCH)) {
+            preparedStatement.setString(1, text);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                productList.add(getProductFrom(resultSet));
+            }
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+        return productList;
+    }
+
 
     @Override
     public void update(Product product) {

@@ -17,5 +17,7 @@ public interface ProductDAO {
 
     void update(Product product) throws DAOException;
 
+    List<Product> seach(String text) throws DAOException;
+
 
 }

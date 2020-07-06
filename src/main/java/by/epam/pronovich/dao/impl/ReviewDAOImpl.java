@@ -20,7 +20,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 
     private final Logger logger = LoggerFactory.getLogger(ReviewDAOImpl.class);
 
-    private final String GET_ALL = "SELECT r.id as r_id, text,title, customer_id, product_id, login" +
+    private final String GET_ALL = "SELECT r.id as r_id, text,title, customer_id, product_id, login " +
             "from shop.review as r inner join shop.customer c on r.customer_id = c.id";
 
     private final String GET_BY_PRODUCT_ID = GET_ALL + " where product_id=?";
@@ -31,13 +31,17 @@ public class ReviewDAOImpl implements ReviewDAO {
     public void add(Review review) {
         try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(ADD)) {
-            prepareProductForAdding(review, preparedStatement);
+            preparedStatement.setString(1, review.getTitle());
+            preparedStatement.setString(2, review.getText());
+            preparedStatement.setInt(3, review.getCustomer().getId());
+            preparedStatement.setInt(4, review.getProduct().getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.warn("Failed add review", e);
             throw new DAOException(e);
         }
     }
+
 
     @Override
     public List<Review> getByProductId(Integer id) {
@@ -56,12 +60,6 @@ public class ReviewDAOImpl implements ReviewDAO {
         return reviews;
     }
 
-    private void prepareProductForAdding(Review review, PreparedStatement preparedStatement) throws SQLException {
-        preparedStatement.setString(1, review.getTitle());
-        preparedStatement.setString(2, review.getText());
-        preparedStatement.setInt(3, review.getCustomer().getId());
-        preparedStatement.setInt(4, review.getProduct().getId());
-    }
 
     private Review getReviewFrom(ResultSet resultSet) throws SQLException {
         return Review.builder()

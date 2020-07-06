@@ -39,6 +39,7 @@ public class CommandProvider {
         commandBox.put(CHECKOUT, new Checkout());
         commandBox.put(UPDATE_STATUS, new StatusUpdating());
         commandBox.put(SHOW_ORDERS, new OrdersShower());
+        commandBox.put(SEARCH, new Search());
     }
 
 

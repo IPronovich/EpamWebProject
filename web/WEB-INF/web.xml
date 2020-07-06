@@ -7,4 +7,31 @@
 <!--    <error-page>-->
 <!--        <location>/WEB-INF/jsp/error/error.jsp</location>-->
 <!--    </error-page>-->
+
+    <servlet>
+        <servlet-name>about</servlet-name>
+        <jsp-file>/WEB-INF/jsp//about.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>about</servlet-name>
+        <url-pattern>/about</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>delivery</servlet-name>
+        <jsp-file>/WEB-INF/jsp/delivery.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>delivery</servlet-name>
+        <url-pattern>/delivery</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>payment</servlet-name>
+        <jsp-file>/WEB-INF/jsp/payment.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>payment</servlet-name>
+        <url-pattern>/payment</url-pattern>
+    </servlet-mapping>
 </web-app>

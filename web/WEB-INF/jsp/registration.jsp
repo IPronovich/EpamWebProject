@@ -35,14 +35,17 @@
             </label>
         </p>
         <p>
+            if ${not empty requestScope.wronPas}{
+            плохой пароль
+
             <label><fmt:message key="form.messageRegistrPassword"/>
-                <input type="password" name="password" placeholder="password" required minlength="6" min="6"> <br>
+                <input type="password" name="password" placeholder="password" required minlength="6"> <br>
             </label>
             <fmt:message key="form.messageRegistrMinSymbol"/>
         </p>
         <p>
             <label><fmt:message key="form.messageRegistrPasswordRepeat"/>
-                <input type="password" name="repeatPassword" placeholder="password" required minlength="6" min="6">
+                <input type="password" name="repeatPassword" placeholder="password" required minlength="6">
             </label>
         </p>
         <button type="submit" name="command" value="registration"

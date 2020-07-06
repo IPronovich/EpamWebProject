@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface CatalogService {
 
-    List<Catalog> getAll() throws ServiceException;
+    List<Catalog> getAllSubCategory() throws ServiceException;
 
     List<Catalog> getAllMainCategory() throws ServiceException;
 

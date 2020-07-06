@@ -23,37 +23,37 @@
         <a style="text-decoration: none" href="/catalog">
             <button type="submit"
                     style="background: #ffce11; font-family: Verdana ; font-weight: bold;border-radius: 20px;
-                     color: black; height: 45px; width: 100px; margin-top: 30px">
+                     color: black; height: 45px; width: auto; margin-top: 30px">
                 <fmt:message key="header.catalog"/>
             </button>
         </a>
     </div>
     <div style="display: inline; margin-left: 50px">
-        <a style="text-decoration: none" href="/catalog">
+        <a style="text-decoration: none" href="${pageContext.request.contextPath}/about">
             <button type="submit"
                     style="background: #ffce11; font-family: Verdana ;  font-weight: bold;border-radius: 20px;
                     color: black; height: 45px; width: auto; margin-top: 8px">
-                О магазине
+                <fmt:message key="header.about"/>
             </button>
         </a>
 
     </div>
     <div style="display: inline; margin-left: 50px">
-        <a style="text-decoration: none" href="/catalog">
+        <a style="text-decoration: none" href="${pageContext.request.contextPath}/delivery">
             <button type="submit"
                     style="background: #ffce11;font-family: Verdana ;  font-weight: bold; ; border-radius: 20px;
-                    color: black; height: 45px; width: 100px; margin-top: 8px">
-                Доставка
+                    color: black; height: 45px; width: auto; margin-top: 8px">
+                <fmt:message key="header.delivery"/>
             </button>
         </a>
 
     </div>
     <div style="display: inline; margin-left: 50px">
-        <a style="text-decoration: none" href="/catalog">
+        <a style="text-decoration: none" href="${pageContext.request.contextPath}/payment">
             <button type="submit"
                     style="background: #ffce11; font-family: Verdana ; font-weight: bold;border-radius: 20px;
                     color: black; height: 45px; width: auto; margin-top: auto">
-                Способы оплаты
+                <fmt:message key="header.payment"/>
             </button>
         </a>
     </div>

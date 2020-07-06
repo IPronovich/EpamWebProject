@@ -20,7 +20,11 @@ public class FromBasketDeleter implements Command {
         String productId = req.getParameter("prodId");
         HttpSession session = req.getSession();
         List<Product> basket = (ArrayList<Product>) session.getAttribute("basket");
-        basket.removeIf(it -> it.getId().equals(Integer.valueOf(productId)));
+        basket.stream().filter(it -> it.getId().equals(Integer.valueOf(productId)))
+                .findFirst().map(i -> {
+            basket.remove(i);
+            return i;
+        });
         req.getSession().setAttribute("basket", basket);
         servletContext.getRequestDispatcher(JspPathUtil.get("basket")).forward(req, resp);
     }

@@ -22,10 +22,7 @@ public class ProductInfoChangeForm implements Command {
     public void execute(HttpServletRequest req, HttpServletResponse resp, ServletContext servletContext) throws ServletException, IOException {
         String productId = req.getParameter("productId");
         Product product = ServiceProvider.getINSTANCE().getProductService().getById(Integer.valueOf(productId));
-        List<Catalog> catalogList = ServiceProvider.getINSTANCE().getCatalogService().getAll().stream()
-                .filter(it -> it.getParentId() != 0)
-                .sorted(Comparator.comparing(Catalog::getDescription))
-                .collect(Collectors.toList());
+        List<Catalog> catalogList = ServiceProvider.getINSTANCE().getCatalogService().getAllSubCategory();
         List<Brand> brands = ServiceProvider.getINSTANCE().getBrandService().getAll();
         req.setAttribute("catalog", catalogList);
         req.setAttribute("brands", brands);

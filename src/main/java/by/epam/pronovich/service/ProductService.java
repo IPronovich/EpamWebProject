@@ -20,5 +20,7 @@ public interface ProductService {
 
     List<Product> sort(List<Product> productList, String order) throws ServiceException;
 
+    List<Product> search(String text) throws ServiceException;
+
 
 }

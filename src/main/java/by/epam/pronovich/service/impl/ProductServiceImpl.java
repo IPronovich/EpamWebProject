@@ -1,6 +1,7 @@
 package by.epam.pronovich.service.impl;
 
 import by.epam.pronovich.dao.DAOProvider;
+import by.epam.pronovich.exception.ServiceException;
 import by.epam.pronovich.model.Product;
 import by.epam.pronovich.service.sorting.SortingName;
 import by.epam.pronovich.service.ProductService;
@@ -31,6 +32,11 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> sort(List<Product> productList, String order) {
         Sorting sorting = sortingBox.get(SortingName.valueOf(order.toUpperCase()));
         return sorting.sort(productList);
+    }
+
+    @Override
+    public List<Product> search(String text) throws ServiceException {
+        return DAOProvider.getINSTANCE().getProductDAO().seach(text);
     }
 
 

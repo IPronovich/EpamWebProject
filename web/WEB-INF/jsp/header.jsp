@@ -33,17 +33,16 @@
 
     <div style="display: inline; margin-left: 50px">
 
-        <form action="${pageContext.request.contextPath}/catalog" method="post" style="display: inline">
+        <form action="${pageContext.request.contextPath}/product" method="post" style="display: inline">
 
-            <input type="text" name="login" style="height: 40px" size="140" placeholder="Поиск в каталоге. Например,
-&#34;сварочный аппарат&#34;">
+            <input type="text" name="text" style="height: 40px" size="140" placeholder="Поиск в каталоге. Например,
+&#34;мобильный телефон&#34;">
 
-            <button type="submit" style="background: red; color: white; height: 40px; width: 75px">
+            <button type="submit" name="command" value="search"
+                    style="background: red; color: white; height: 40px; width: 75px">
                 <fmt:message key="header.search"/>
             </button>
-
         </form>
-
     </div>
 
     <c:if test="${ empty sessionScope.customer}">
@@ -75,6 +74,10 @@
     <div style="display: inline">
         <a style="text-decoration: none" href="${pageContext.request.contextPath}/basket">
             <img src="${pageContext.servletContext.contextPath}/images/basket2.png" width="50" , height="50">
+            <c:if test="${not empty sessionScope.basket}">
+                ${sessionScope.basket.size()}
+            </c:if>
+
         </a>
 
     </div>

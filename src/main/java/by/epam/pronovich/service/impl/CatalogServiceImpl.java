@@ -4,13 +4,18 @@ import by.epam.pronovich.dao.DAOProvider;
 import by.epam.pronovich.model.Catalog;
 import by.epam.pronovich.service.CatalogService;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CatalogServiceImpl implements CatalogService {
 
     @Override
-    public List<Catalog> getAll() {
-        return DAOProvider.getINSTANCE().getCatalogDAO().getAll();
+    public List<Catalog> getAllSubCategory() {
+        return DAOProvider.getINSTANCE().getCatalogDAO().getAll().stream()
+                .filter(it -> it.getParentId() != 0)
+                .sorted(Comparator.comparing(Catalog::getDescription))
+                .collect(Collectors.toList());
     }
 
     @Override

@@ -24,5 +24,6 @@ public enum CommandName {
     DELETE_FROM_BASKET,
     CHECKOUT,
     UPDATE_STATUS,
-    SHOW_ORDERS
+    SHOW_ORDERS,
+    SEARCH
 }
