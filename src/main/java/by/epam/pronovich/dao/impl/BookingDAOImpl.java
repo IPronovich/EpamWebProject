@@ -35,12 +35,7 @@ public class BookingDAOImpl implements BookingDAO {
              PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Booking booking = Booking.builder()
-                        .id(resultSet.getInt("id"))
-                        .date(resultSet.getDate("date").toLocalDate())
-                        .bookingStatus(BookingStatus.valueOf(resultSet.getString("status")))
-                        .customer(DAOProvider.getINSTANCE().getCustomerDAO().getById(resultSet.getInt("customer_id")))
-                        .build();
+                Booking booking = getBookingFrom(resultSet);
                 bookingList.add(booking);
             }
         } catch (SQLException e) {
@@ -58,12 +53,7 @@ public class BookingDAOImpl implements BookingDAO {
             preparedStatement.setInt(1, customer.getId());
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Booking booking = Booking.builder()
-                        .id(resultSet.getInt("id"))
-                        .date(resultSet.getDate("date").toLocalDate())
-                        .bookingStatus(BookingStatus.valueOf(resultSet.getString("status")))
-                        .customer(customer)
-                        .build();
+                Booking booking = getBookingFrom(resultSet, customer);
                 bookingList.add(booking);
             }
         } catch (SQLException e) {
@@ -78,9 +68,7 @@ public class BookingDAOImpl implements BookingDAO {
         Booking booking = Booking.builder().date(LocalDate.now()).bookingStatus(INPROCESSING).customer(customer).build();
         try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(ADD, RETURN_GENERATED_KEYS)) {
-            preparedStatement.setDate(1, Date.valueOf(booking.getDate()));
-            preparedStatement.setString(2, booking.getBookingStatus().name());
-            preparedStatement.setInt(3, booking.getCustomer().getId());
+            prepareBookingForSaving(booking, preparedStatement);
             preparedStatement.executeUpdate();
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
             if (generatedKeys.next()) {
@@ -97,12 +85,40 @@ public class BookingDAOImpl implements BookingDAO {
     public void updateStatus(Booking booking) {
         try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_STATUS)) {
-            preparedStatement.setString(1, booking.getBookingStatus().name());
-            preparedStatement.setInt(2, booking.getId());
+            prepareBookingForUpdating(booking, preparedStatement);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.warn("Failed update booking status", e);
             throw new DAOException(e);
         }
+    }
+
+    private void prepareBookingForUpdating(Booking booking, PreparedStatement preparedStatement) throws SQLException {
+        preparedStatement.setString(1, booking.getBookingStatus().name());
+        preparedStatement.setInt(2, booking.getId());
+    }
+
+    private void prepareBookingForSaving(Booking booking, PreparedStatement preparedStatement) throws SQLException {
+        preparedStatement.setDate(1, Date.valueOf(booking.getDate()));
+        preparedStatement.setString(2, booking.getBookingStatus().name());
+        preparedStatement.setInt(3, booking.getCustomer().getId());
+    }
+
+    private Booking getBookingFrom(ResultSet resultSet) throws SQLException {
+        return Booking.builder()
+                .id(resultSet.getInt("id"))
+                .date(resultSet.getDate("date").toLocalDate())
+                .bookingStatus(BookingStatus.valueOf(resultSet.getString("status")))
+                .customer(DAOProvider.getINSTANCE().getCustomerDAO().getById(resultSet.getInt("customer_id")))
+                .build();
+    }
+
+    private Booking getBookingFrom(ResultSet resultSet, Customer customer) throws SQLException {
+        return Booking.builder()
+                .id(resultSet.getInt("id"))
+                .date(resultSet.getDate("date").toLocalDate())
+                .bookingStatus(BookingStatus.valueOf(resultSet.getString("status")))
+                .customer(customer)
+                .build();
     }
 }

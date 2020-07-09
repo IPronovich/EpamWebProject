@@ -11,6 +11,7 @@ public class PriceAscSorting implements Sorting {
 
     @Override
     public List<Product> sort(List<Product> productList) {
-        return productList.stream().filter(it -> it.getQuantity() > 0).sorted(Comparator.comparing(Product::getPrice)).collect(Collectors.toList());
+        return productList.stream().filter(it -> it.getQuantity() > 0)
+                .sorted(Comparator.comparing(Product::getPrice)).collect(Collectors.toList());
     }
 }

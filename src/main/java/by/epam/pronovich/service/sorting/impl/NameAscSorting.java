@@ -11,6 +11,7 @@ public class NameAscSorting implements Sorting {
 
     @Override
     public List<Product> sort(List<Product> productList) {
-        return productList.stream().sorted(Comparator.comparing(it -> it.getBrand().getName())).collect(Collectors.toList());
+        return productList.stream()
+                .sorted(Comparator.comparing(it -> it.getBrand().getName())).collect(Collectors.toList());
     }
 }

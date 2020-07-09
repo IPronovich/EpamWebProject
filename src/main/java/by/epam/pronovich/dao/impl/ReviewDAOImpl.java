@@ -31,10 +31,7 @@ public class ReviewDAOImpl implements ReviewDAO {
     public void add(Review review) {
         try (Connection connection = ConnectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(ADD)) {
-            preparedStatement.setString(1, review.getTitle());
-            preparedStatement.setString(2, review.getText());
-            preparedStatement.setInt(3, review.getCustomer().getId());
-            preparedStatement.setInt(4, review.getProduct().getId());
+            prepareReviewForSaving(review, preparedStatement);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.warn("Failed add review", e);
@@ -60,6 +57,12 @@ public class ReviewDAOImpl implements ReviewDAO {
         return reviews;
     }
 
+    private void prepareReviewForSaving(Review review, PreparedStatement preparedStatement) throws SQLException {
+        preparedStatement.setString(1, review.getTitle());
+        preparedStatement.setString(2, review.getText());
+        preparedStatement.setInt(3, review.getCustomer().getId());
+        preparedStatement.setInt(4, review.getProduct().getId());
+    }
 
     private Review getReviewFrom(ResultSet resultSet) throws SQLException {
         return Review.builder()

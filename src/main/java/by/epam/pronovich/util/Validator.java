@@ -30,8 +30,9 @@ public class Validator {
         boolean result = true;
         String password = request.getParameter("password");
         String repeatPassword = request.getParameter("repeatPassword");
-        boolean correctLength = (password.length() >= MIN_PASSWORD_LENGTH && repeatPassword.length() >= MIN_PASSWORD_LENGTH);
-        boolean repetablePassword = (password.equals(repeatPassword));
+        boolean correctLength = (password.length() >= MIN_PASSWORD_LENGTH &&
+                repeatPassword.length() >= MIN_PASSWORD_LENGTH);
+        boolean repetablePassword = (Objects.equals(password, repeatPassword));
         if (!correctLength || !repetablePassword) {
             result = false;
             request.setAttribute("checkPassword", "password.wrong");

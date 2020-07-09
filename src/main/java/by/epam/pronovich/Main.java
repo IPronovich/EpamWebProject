@@ -11,12 +11,16 @@ import org.apache.log4j.Logger;
 
 
 import java.util.List;
+import java.util.Objects;
 
 
 public class Main {
 
 
     public static void main(String[] args) {
+        String t1=null;
+        String t2=null;
+        System.out.println(t1.equals(t2));
 
 
 
