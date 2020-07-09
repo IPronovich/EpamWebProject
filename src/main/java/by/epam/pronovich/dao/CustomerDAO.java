@@ -12,4 +12,6 @@ public interface CustomerDAO {
     Customer autorize(String login, String password) throws DAOException;
 
     void update(Customer customer) throws DAOException;
+
+    String getLogin(String login) throws DAOException;
 }

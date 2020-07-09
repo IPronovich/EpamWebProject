@@ -1,6 +1,7 @@
 package by.epam.pronovich.service.impl;
 
 import by.epam.pronovich.dao.DAOProvider;
+import by.epam.pronovich.exception.ServiceException;
 import by.epam.pronovich.model.Customer;
 import by.epam.pronovich.service.CustomerService;
 
@@ -26,5 +27,10 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void update(Customer customer) {
         DAOProvider.getINSTANCE().getCustomerDAO().update(customer);
+    }
+
+    @Override
+    public String getLogin(String login) throws ServiceException {
+        return DAOProvider.getINSTANCE().getCustomerDAO().getLogin(login);
     }
 }

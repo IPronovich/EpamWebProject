@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="/WEB-INF/custom.tld" prefix="px" %>
+<%@include file="language.jsp" %>
 
 
 <html>
@@ -33,13 +34,13 @@
 <table>
     <tr style="background-color: #dddddd">
         <th>
-            НОМЕР ЗАКАЗА
+            <fmt:message key="history.order"/>
         </th>
         <th>
-            ДАТА
+            <fmt:message key="header.date"/>
         </th>
         <th>
-            СТАТУС ЗАКАЗА
+            <fmt:message key="history.status"/>
         </th>
     </tr>
 
@@ -68,7 +69,7 @@
 
         <tr>
             <th style="background-color: #dddddd">
-                СУММА <px:priceSumTag products="${productBooking.products}"/>
+                <fmt:message key="form.price"/> <px:priceSumTag products="${productBooking.products}"/>
             </th>
         </tr>
 

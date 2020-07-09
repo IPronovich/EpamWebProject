@@ -8,9 +8,10 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@include file="language.jsp" %>
 <html>
 <head>
-    <title>ДОБАВЛЕНИЕ ТОВАРА</title>
+    <title><fmt:message key="form.addProdcut"/></title>
     <style>
         div {
             width: 500px;
@@ -30,12 +31,12 @@
     </a>
 
     <form action="${pageContext.request.contextPath}/admin-page" method="post">
-        <p><span style="color: red; margin: 70px; font-size: x-large">ИЗМЕНЕНИЕ ИНФОРМАЦИИ О ТОВАРЕ</span></p>
+        <p><span style="color: red; margin: 70px; font-size: x-large"><fmt:message key="form.changenInfo"/></span></p>
 
         <input type="hidden" value="${requestScope.product.id}" name="productId">
 
         <p>
-            <label>Категоря товара <br>
+            <label><fmt:message key="form.category"/> <br>
                 <select name="catalogId">
                     <c:forEach var="catalog" items="${requestScope.catalog}">
                         <option value="${catalog.id}">${catalog.description}</option>
@@ -46,7 +47,7 @@
             </label>
         </p>
         <p>
-            <label>Производитель <br>
+            <label><fmt:message key="form.brand"/> <br>
                 <select name="brandId">
                     <c:forEach var="brand" items="${requestScope.brands}">
                         <option value="${brand.id}">${brand.name}</option>
@@ -57,36 +58,36 @@
             </label>
         </p>
         <p>
-            <label>Модель<br>
+            <label><fmt:message key="form.model"/><br>
                 <input type="text" style="font-size: x-large" name="model" value="${requestScope.product.model}">
             </label>
         </p>
         <p>
-            <label>Описание
+            <label><fmt:message key="form.description"/>
                 <textarea style="font-size: x-large" cols=40 rows=10 name="description">
                     ${requestScope.product.description}
                 </textarea>
             </label>
         </p>
         <p>
-            <label>Цена<br>
+            <label><fmt:message key="form.price"/><br>
                 <input type="text" style="font-size: x-large" name="price" value="${requestScope.product.price}">
             </label>
         </p>
         <p>
-            <label>Фото<br>
+            <label><fmt:message key="form.image"/><br>
                 <input type="text" style="font-size: x-large" name="img" value="${requestScope.product.img}">
             </label>
         </p>
         <p>
-            <label>Количество<br>
+            <label><fmt:message key="form.quantity"/><br>
                 <input type="text" style="font-size: x-large" name="quantity" value="${requestScope.product.quantity}">
             </label>
         </p>
 
         <button type="submit" name="command" value="save_product_changes"
                 style="background: green; border-radius: 10px; color: white; height: 40px; width:auto">
-            Сохранить изменения
+            <fmt:message key="ok"/>
         </button>
     </form>
 </div>

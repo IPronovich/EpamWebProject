@@ -12,4 +12,6 @@ public interface CustomerService {
     Customer getById(Integer id) throws ServiceException;
 
     void update(Customer customer) throws ServiceException;
+
+    String getLogin(String login) throws ServiceException;
 }

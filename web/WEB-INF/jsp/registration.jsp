@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: koksR4
@@ -13,7 +14,7 @@
     <style>
         div {
             width: 300px;
-            height: 350px; /* Размеры */
+            height: 400px; /* Размеры */
             outline: 1px solid darkgrey; /* Чёрная рамка */
             border: 25px solid #fff; /* Белая рамка */
             border-radius: 20%; /* Радиус скругления */
@@ -33,11 +34,11 @@
             <label><fmt:message key="form.messageRegistrLogin"/><br>
                 <input type="text" name="login" placeholder="login" required>
             </label>
-        </p>
+            <c:if test="${not empty requestScope.checkLogin}">
+        <p style="color: red"> <fmt:message key="${requestScope.checkLogin}"/><p>
+        </c:if>
+    </p>
         <p>
-            if ${not empty requestScope.wronPas}{
-            плохой пароль
-
             <label><fmt:message key="form.messageRegistrPassword"/>
                 <input type="password" name="password" placeholder="password" required minlength="6"> <br>
             </label>
@@ -47,13 +48,17 @@
             <label><fmt:message key="form.messageRegistrPasswordRepeat"/>
                 <input type="password" name="repeatPassword" placeholder="password" required minlength="6">
             </label>
-        </p>
+            <c:if test="${not empty requestScope.checkPassword}">
+        <p style="color: red"> <fmt:message key="${requestScope.checkPassword}"/><p>
+        </c:if>
+    </p>
         <button type="submit" name="command" value="registration"
                 style="background: green; color: white">
             <fmt:message key="ok"/>
         </button>
     </form>
 </div>
+<p></p>
 
 </body>
 </html>

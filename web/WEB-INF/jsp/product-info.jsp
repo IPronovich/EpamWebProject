@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<%@include file="language.jsp" %>
 
 <html>
 <head>
@@ -52,7 +52,8 @@
         </th>
 
         <th width="190px">
-            <c:if test="${requestScope.product.quantity == 0}"><h2 style="text-align: center">Нет в наличии</h2></c:if>
+            <c:if test="${requestScope.product.quantity == 0}"><h2 style="text-align: center"><fmt:message
+                    key="header.soldOut"/></h2></c:if>
             <c:if test="${requestScope.product.quantity != 0}"><h2
                     style="text-align: center">
                 <fmt:formatNumber value=" ${requestScope.product.price}" type="CURRENCY" currencySymbol="р."/></h2>
@@ -65,7 +66,7 @@
                     <input type="hidden" value="${requestScope.product.id}" name="productId">
                     <button type="submit" name="command" value="add_to_basket"
                             style="background: orange; color: white; height: auto; width: auto; margin-left: 40px">
-                        <h2 style="text-align: center">В корзину</h2>
+                        <h2 style="text-align: center"><fmt:message key="basket"/></h2>
                     </button>
                 </form>
             </th>
@@ -77,7 +78,7 @@
     <a style="text-decoration: none" href="${pageContext.request.contextPath}/review?id=${requestScope.product.id}">
         <button type="submit"
                 style="border: 5px solid #dddddd; background: white; color: #0a0a49; height: 50px; width: auto;">
-            <h2 style="text-align: center; display: inline">ОТЗЫВЫ ПОКУПАТЕЛЕЙ </h2>
+            <h2 style="text-align: center; display: inline"><fmt:message key="review"/></h2>
             <h3 style="display: inline">${requestScope.count_review} </h3>
         </button>
     </a>
@@ -87,11 +88,9 @@
         <input type="hidden" value="${requestScope.product.id}" name="productId">
         <button type="submit" name="command" value="change_product_info_form"
                 style="background: green; border-radius: 10px; color: white; height: 40px; width:auto">
-            ИЗМЕНИТЬ
+            <fmt:message key="form.change"/>
         </button>
     </form>
     </c:if>
-
-
 </body>
 </html>

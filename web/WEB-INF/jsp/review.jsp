@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@include file="language.jsp" %>
 <style>
     table {
         font-family: arial, sans-serif;
@@ -27,7 +28,7 @@
 
 <html>
 <head>
-    <title>Отзывы</title>
+    <title><fmt:message key="review"/></title>
 </head>
 <body>
 <jsp:include page="header.jsp"></jsp:include>
@@ -38,7 +39,7 @@
         <a style="text-decoration: none" href="${pageContext.request.contextPath}/authentication">
             <button type="submit"
                     style="border: 5px solid white; background: #14ad14; color:white;  border-radius: 10px; height: 50px; width: auto;">
-                <h2 style="text-align: center; display: inline">ОСТАВИТЬ ОТЗЫВ </h2>
+                <h2 style="text-align: center; display: inline"><fmt:message key="review.write"/></h2>
             </button>
         </a>
 
@@ -51,10 +52,10 @@
         <button type="submit" name="command" value="review_form"
                 style="border: 5px solid white; background: #14ad14; color:white;
                   border-radius: 10px; height: 50px; width: auto;">
-            <h2 style="text-align: center; display: inline">ОСТАВИТЬ ОТЗЫВ </h2>
+            <h2 style="text-align: center; display: inline"><fmt:message key="review.write"/></h2>
         </button>
 
-        <h3 style="display: inline"> Ваш отзыв может значительно повлиять на выбор товара или услуги</h3>
+        <h3 style="display: inline"><fmt:message key="review.message"/></h3>
         </c:if>
 
 </div>
@@ -73,7 +74,5 @@
         </tr>
     </table>
 </c:forEach>
-
-
 </body>
 </html>

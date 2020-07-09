@@ -9,15 +9,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fun" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@include file="language.jsp" %>
-
+<%@include file="header.jsp" %>
+<%@include file="secondHeader.jsp" %>
 
 <html>
 <head>
     <title>PRODUCT Olener</title>
 </head>
 <body>
-<jsp:include page="header.jsp"></jsp:include>
-<jsp:include page="secondHeader.jsp"></jsp:include>
+
 
 <style>
     .tableH {
@@ -64,7 +64,8 @@
             </th>
 
             <th width="190px">
-                <c:if test="${product.quantity == 0}"><h2 style="text-align: center">Нет в наличии</h2></c:if>
+                <c:if test="${product.quantity == 0}"><h2 style="text-align: center"><fmt:message
+                        key="header.soldOut"/></h2></c:if>
                 <c:if test="${product.quantity != 0}"><h2 style="text-align: center">
                     <fmt:formatNumber value="${product.price}" type="CURRENCY" currencySymbol="р."/></h2></c:if>
             </th>

@@ -18,7 +18,7 @@
 
 
 <c:forEach var="category" items="${requestScope.catalog}">
-    <div style="width: 300px; height: 30px; outline: 1px solid darkgrey; border: 5px outset black; text-align: center;
+    <div style="width: 300px; height:auto; outline: 1px solid darkgrey; border: 5px outset black; text-align: center;
              vertical-align: middle">
 
         <a style="text-decoration: none"

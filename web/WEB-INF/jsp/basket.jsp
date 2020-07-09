@@ -9,6 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="/WEB-INF/custom.tld" prefix="px" %>
+<%@include file="language.jsp" %>
 
 <html>
 <head>
@@ -32,7 +33,7 @@
 </style>
 
 <c:if test="${ empty sessionScope.basket}">
-    <h1> Ваша корзина пуста</h1>
+    <h1><fmt:message key="basket.empty"/></h1>
 </c:if>
 
 <c:if test="${not empty sessionScope.basket}">
@@ -65,7 +66,7 @@
                         <form action="/basket" method="post">
                             <input type="hidden" name="prodId" value="${product.id}">
                             <button type="submit" name="command" value="delete_from_basket">
-                                Удалить
+                                <fmt:message key="header.delete"/>
                             </button>
                         </form>
                     </th>
@@ -80,7 +81,7 @@
     <table>
         <tr>
             <th style="background-color: #dddddd">
-                СУММА <px:priceSumTag products="${sessionScope.basket}"/>
+                <fmt:message key="header.total"/> <px:priceSumTag products="${sessionScope.basket}"/>
             </th>
         </tr>
     </table>
@@ -88,7 +89,7 @@
     <form action="/basket" method="post">
         <button type="submit" name="command" value="checkout"
                 style="background: green; border-radius: 10px; color: white; height: 40px; width:auto">
-            ОФОРМИТЬ ЗАКАЗ
+            <fmt:message key="basket.order"/>
         </button>
     </form>
 </c:if>

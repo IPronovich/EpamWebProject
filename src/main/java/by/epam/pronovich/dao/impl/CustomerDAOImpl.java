@@ -22,6 +22,7 @@ public class CustomerDAOImpl implements CustomerDAO {
     private String REGISTR = "INSERT into shop.customer (login,password,role) values (?,?,?)";
     private String GET_BY_ID = GET_ALL + " where id=?";
     private String UPDATE = "UPDATE shop.customer SET email=?, name=?, last_name=?, phone_number=?, address=? where id=?";
+    private String GET_LOGIN = "select login from shop.customer where login ilike ?";
 
     @Override
     public Customer getById(Integer id) {
@@ -50,6 +51,22 @@ public class CustomerDAOImpl implements CustomerDAO {
             logger.warn("Failed update customer info", e);
             throw new DAOException(e);
         }
+    }
+
+    @Override
+    public String getLogin(String login) throws DAOException {
+        String result = null;
+        try (Connection connection = ConnectionPool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_LOGIN)) {
+            preparedStatement.setString(1, login);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                result = resultSet.getString("login");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return result;
     }
 
 

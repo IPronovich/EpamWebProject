@@ -9,16 +9,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fun" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib uri="/WEB-INF/custom.tld" prefix="px" %>
+<%@include file="language.jsp" %>
 
 
 <html>
 <head>
-    <title>ЗАКАЗЫ</title>
+    <title><fmt:message key="admin.orders"/></title>
 </head>
 <body>
 <jsp:include page="header.jsp"></jsp:include>
 <jsp:include page="secondHeader.jsp"></jsp:include>
-<%@include file="language.jsp" %>
+
 <style>
     table {
         font-family: arial, sans-serif;
@@ -34,13 +35,13 @@
 <table>
     <tr style="background-color: #dddddd">
         <th>
-            НОМЕР ЗАКАЗА
+            <fmt:message key="history.order"/>
         </th>
         <th>
-            ДАТА
+            <fmt:message key="header.date"/>
         </th>
         <th>
-            СТАТУС ЗАКАЗА
+            <fmt:message key="history.status"/>
         </th>
     </tr>
 
@@ -66,7 +67,7 @@
                     </select>
                     <button type="submit" name="command" value="update_status"
                             style="background: green; color: white">
-                        ОБНОВИТЬ
+                        <fmt:message key="header.update"/>
                     </button>
                 </form>
 
@@ -101,7 +102,7 @@
 
         <tr>
             <th style="background-color: #dddddd">
-                СУММА <px:priceSumTag products="${productBooking.products}"/>
+                <fmt:message key="form.price"/> <px:priceSumTag products="${productBooking.products}"/>
             </th>
         </tr>
 

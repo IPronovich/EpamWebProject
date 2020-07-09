@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@include file="language.jsp" %>
 <html>
 <head>
     <title>Авторизация</title>
@@ -29,36 +30,36 @@
     </a>
 
     <form action="${pageContext.request.contextPath}/profile" method="post">
-        <p><span style="color: red; margin: 30px; font-size: x-large">Личные данные</span></p>
+        <p><span style="color: red; margin: 30px; font-size: x-large"><fmt:message key="user.info"/> </span></p>
         <p>
             <label>Email <br>
                 <input type="text" name="email" value="${sessionScope.customer.email}">
             </label>
         </p>
         <p>
-            <label>Имя <br>
+            <label><fmt:message key="user.info.name"/><br>
                 <input type="text" name="name" value="${sessionScope.customer.name}">
             </label>
         </p>
         <p>
-            <label>Фамилия <br>
+            <label><fmt:message key="user.info.lastname"/> <br>
                 <input type="text" name="lastName" value="${sessionScope.customer.lastName}">
             </label>
         </p>
         <p>
-            <label>Адресс <br>
+            <label><fmt:message key="user.info.address"/> <br>
                 <input type="text" name="address" value="${sessionScope.customer.address}">
             </label>
         </p>
         <p>
-            <label>Телефон <br>
+            <label><fmt:message key="user.info.phone"/> <br>
                 <input type="text" name="phone" value="${sessionScope.customer.phoneNumber}">
             </label>
         </p>
 
         <button type="submit" name="command" value="save_user_changes"
                 style="background: green; border-radius: 10px; color: white; height: 40px; width:auto">
-            Сохранить изменения
+            <fmt:message key="ok"/>
         </button>
     </form>
 

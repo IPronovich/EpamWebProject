@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@include file="language.jsp" %>
 <style>
     table {
         font-family: arial, sans-serif;
@@ -27,16 +28,16 @@
 
 <html>
 <head>
-    <title>Личный кабинет</title>
+    <title><fmt:message key="user.info"/></title>
 </head>
 <body>
 <jsp:include page="header.jsp"></jsp:include>
 <jsp:include page="secondHeader.jsp"></jsp:include>
 
-<h2>Личные данные</h2>
+<h2><fmt:message key="user.info"/></h2>
 <table>
     <tr>
-        <th>Логин</th>
+        <th><fmt:message key="user.info.login"/></th>
         <th>${sessionScope.customer.login}</th>
     </tr>
     <tr>
@@ -50,7 +51,7 @@
         </c:if>
     </tr>
     <tr>
-        <td>Имя</td>
+        <td><fmt:message key="user.info.name"/></td>
         <td>
             <c:if test="${ empty sessionScope.customer.name}">
                 ----
@@ -60,7 +61,7 @@
         </c:if>
     </tr>
     <tr>
-        <td>Фамилия</td>
+        <td><fmt:message key="user.info.lastname"/></td>
         <td>
             <c:if test="${ empty sessionScope.customer.lastName}">
                 ----
@@ -70,7 +71,7 @@
         </c:if>
     </tr>
     <tr>
-        <td>Телефон</td>
+        <td><fmt:message key="user.info.phone"/></td>
         <td>
             <c:if test="${sessionScope.customer.phoneNumber==0}">
                 ----
@@ -80,7 +81,7 @@
         </c:if>
     </tr>
     <tr>
-        <td>Адресс</td>
+        <td><fmt:message key="user.info.address"/></td>
         <td>
             <c:if test="${ empty sessionScope.customer.address}">
                 ----
@@ -95,20 +96,20 @@
     <form action="/profile" method="post" style="display: inline">
         <button type="submit" name="command" value="user_change_info_form"
                 style="background: green; border-radius: 10px; color: white; height: 40px; width:auto">
-            ИЗМЕНИТЬ
+            <fmt:message key="form.change"/>
         </button>
     </form>
 
     <form action="/profile" method="post" style="display: inline">
         <button type="submit" name="command" value="logout"
-                style="background:red; border-radius: 10px; color: white; height: 40px; width:70px">
-            ВЫЙТИ
+                style="background:red; border-radius: 10px; color: white; height: 40px; width:auto">
+            <fmt:message key="header.signOut"/>
         </button>
     </form>
     <form action="/profile" method="post" style="display: inline">
         <button type="submit" name="command" value="history"
                 style="background:deepskyblue; border-radius: 10px; color: white; height: 40px; width:auto">
-            ИСТОРИЯ ЗАКАЗОВ
+            <fmt:message key="history"/>
         </button>
     </form>
 </div>

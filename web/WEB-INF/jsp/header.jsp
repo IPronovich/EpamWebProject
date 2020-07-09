@@ -33,7 +33,7 @@
 
     <div style="display: inline; margin-left: 50px">
 
-        <form action="${pageContext.request.contextPath}/product" method="post" style="display: inline">
+        <form action="${pageContext.request.contextPath}/search" method="post" style="display: inline">
 
             <input type="text" name="text" style="height: 40px" size="140" placeholder="Поиск в каталоге. Например,
 &#34;мобильный телефон&#34;">
@@ -63,7 +63,7 @@
         <div style="display: inline; margin-left: 50px">
             <a style="text-decoration: none" href="/profile">
                 <button type="submit"
-                        style="background: silver; border-radius: 20px; color: black; height: 40px; width: 75px">
+                        style="background: silver; border-radius: 20px; color: black; height: 40px; width: auto">
                         ${sessionScope.customer.login}
                 </button>
             </a>

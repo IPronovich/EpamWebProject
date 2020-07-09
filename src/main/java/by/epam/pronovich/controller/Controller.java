@@ -19,13 +19,10 @@ public class Controller {
 
     private final CommandProvider commandProvider = new CommandProvider();
 
-
     public void doAction(HttpServletRequest req, HttpServletResponse resp, ServletContext servletContext) throws ServletException, IOException {
         String commandName = getCommandName(req);
         Command command = commandProvider.getCommand(commandName);
         command.execute(req, resp, servletContext);
-
-
     }
 
     private String getCommandName(HttpServletRequest request) {

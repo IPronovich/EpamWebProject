@@ -33,9 +33,6 @@
     }
 </style>
 
-<%--<fmt:setLocale value="en_US"/>--%>
-<%--<fmt:setBundle basename="translation"/>--%>
-
 <c:if test="${not empty requestScope.products }">
     <h1 style="color: #0f1b65"> ${requestScope.products.get(0).catalog.description} </h1>
 </c:if>
@@ -81,7 +78,8 @@
             </th>
 
             <th width="190px">
-                <c:if test="${product.quantity == 0}"><h2 style="text-align: center">Нет в наличии</h2></c:if>
+                <c:if test="${product.quantity == 0}"><h2 style="text-align: center"><fmt:message
+                        key="header.soldOut"/></h2></c:if>
                 <c:if test="${product.quantity != 0}"><h2 style="text-align: center">
                     <fmt:formatNumber value="${product.price}" type="CURRENCY" currencySymbol="р."/></h2></c:if>
             </th>
