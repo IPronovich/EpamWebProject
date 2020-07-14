@@ -14,20 +14,22 @@ public class SaveUserChanges implements Command {
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp, ServletContext servletContext) throws ServletException, IOException {
-        Customer customer = getCustomerFrom(req);
+        Customer customer = getUpdatedCustomerFrom(req);
         ServiceProvider.getINSTANCE().getCustomerService().update(customer);
         req.getSession().setAttribute("customer", customer);
         resp.sendRedirect("/profile");
     }
 
-    private Customer getCustomerFrom(HttpServletRequest req) {
+    private Customer getUpdatedCustomerFrom(HttpServletRequest req) {
         Customer customer = (Customer) req.getSession().getAttribute("customer");
         return Customer.builder()
                 .login(customer.getLogin())
                 .id(customer.getId())
                 .email(req.getParameter("email"))
                 .name(req.getParameter("name"))
-                .lastName(req.getParameter("lastName")).address(req.getParameter("address"))
+                .lastName(req.getParameter("lastName"))
+                .role(customer.getRole())
+                .address(req.getParameter("address"))
                 .phoneNumber((Integer.valueOf(req.getParameter("phone")))).build();
     }
 }

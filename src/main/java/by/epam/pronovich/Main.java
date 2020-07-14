@@ -18,13 +18,12 @@ public class Main {
 
 
     public static void main(String[] args) {
-        String t1=null;
-        String t2=null;
-        System.out.println(t1.equals(t2));
-
+        List<Booking> all = ServiceProvider.getINSTANCE().getBookingService().getAll();
+        all.forEach(System.out::println);
 
 
     }
+
 }
 
 

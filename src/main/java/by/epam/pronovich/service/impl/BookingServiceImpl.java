@@ -9,6 +9,7 @@ import by.epam.pronovich.service.BookingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class BookingServiceImpl implements BookingService {
@@ -32,6 +33,7 @@ public class BookingServiceImpl implements BookingService {
         List<Booking> bookingList = null;
         try {
             bookingList = DAOProvider.getINSTANCE().getBookingDAO().getAll();
+            sortById(bookingList);
         } catch (DAOException e) {
             logger.warn("Failed get all bookings", e);
             throw new ServiceException(e);
@@ -44,6 +46,7 @@ public class BookingServiceImpl implements BookingService {
         List<Booking> bookingList = null;
         try {
             bookingList = DAOProvider.getINSTANCE().getBookingDAO().getByCustomer(customer);
+            sortById(bookingList);
         } catch (DAOException e) {
             logger.warn("Failed get bookings by customer", e);
             throw new ServiceException(e);
@@ -59,5 +62,9 @@ public class BookingServiceImpl implements BookingService {
             logger.warn("Failed update booking status", e);
             throw new ServiceException(e);
         }
+    }
+
+    private void sortById(List<Booking> bookings) {
+        bookings.sort(Comparator.comparing(Booking::getId).reversed());
     }
 }
